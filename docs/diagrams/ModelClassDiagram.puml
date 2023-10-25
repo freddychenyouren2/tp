@@ -4,7 +4,6 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-
 Package Model as ModelPackage <<Rectangle>>{
 Class "<<interface>>\nReadOnlyAddressBook" as ReadOnlyAddressBook
 Class "<<interface>>\nReadOnlyUserPrefs" as ReadOnlyUserPrefs
@@ -13,40 +12,33 @@ Class AddressBook
 Class ModelManager
 Class UserPrefs
 
-'Entities are in their respective lists
 Class UniquePatientList
 Class UniqueDentistList
 Class UniqueAppointmentList
 Class UniqueTreatmentList
 
-'Main Entities in App
 Class Person
 Class Patient
 Class Dentist
 Class Appointment
 Class Treatment
 
-'Common class for Patient and Dentist
 Class Address
 Class Email
 Class Name
 Class Phone
 Class Tag
 
-'Dentist specific class
 Class Specialization
 Class Yoe
 
-'Patient specific class
 Class Gender
 Class BirthDate
 Class Service
 
-'Appointment specific class
 Class AppointmentDate
 Class AppointmentTime
 
-'Treatment specific class
 Class TreatmentCost
 Class TreatmentName
 Class TreatmentTime
@@ -95,9 +87,6 @@ UniqueTreatmentList --> "~* all " Treatment
 Treatment *--> TreatmentCost
 Treatment *--> TreatmentName
 Treatment *--> TreatmentTime
-
-'Person -[hidden]up--> I
-'UniquePersonList -[hidden]right-> I
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
