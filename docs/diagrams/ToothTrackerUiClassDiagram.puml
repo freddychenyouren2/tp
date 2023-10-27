@@ -1,0 +1,85 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+skinparam groupInheritance 3
+
+package UI <<Rectangle>>{
+Class "<<interface>>\nUi" as Ui
+Class "{abstract}\nUiPart" as UiPart
+Class UiManager
+Class MainWindow
+Class HelpWindow
+Class ResultDisplay
+Class PatientListPanel
+Class PatientCard
+Class DentistListPanel
+Class DentistCard
+Class AppointmentListPanel
+Class AppointmentCard
+Class StatusBarFooter
+Class CommandBox
+Class QuickNotes
+}
+
+package Model <<Rectangle>> {
+Class HiddenModel #FFFFFF
+}
+
+package Logic <<Rectangle>> {
+Class HiddenLogic #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside .up.> Ui
+
+MainWindow *-up-->  "1" CommandBox
+MainWindow *-up--> "1" ResultDisplay
+MainWindow *-up--> "1" PatientListPanel
+MainWindow *-up--> "1" DentistListPanel
+MainWindow *-up--> "1" AppointmentListPanel
+MainWindow *-up--> "1" StatusBarFooter
+MainWindow *-up--> "1" QuickNotes
+MainWindow -up-> "0..1" HelpWindow
+
+PatientListPanel -up--> "*" PatientCard
+DentistListPanel -up--> "*" DentistCard
+AppointmentListPanel -up--> "*" AppointmentCard
+
+MainWindow -up-|> UiPart
+
+ResultDisplay -up--|> UiPart
+CommandBox -up--|> UiPart
+PatientListPanel -up--|> UiPart
+DentistListPanel -up--|> UiPart
+AppointmentListPanel -up--|> UiPart
+PatientCard -up--|> UiPart
+DentistCard -up--|> UiPart
+AppointmentCard -up--|> UiPart
+QuickNotes -up--|> UiPart
+StatusBarFooter -up--|> UiPart
+HelpWindow -up--|> UiPart
+
+PatientCard .up...> Model
+DentistCard .up...> Model
+AppointmentCard .up...> Model
+
+UiManager .left.|> Ui
+UiManager -up-> "1" MainWindow
+
+UiManager -left---> Logic
+MainWindow -left--> Logic
+
+AppointmentListPanel -[hidden]left- DentistListPanel
+DentistListPanel -[hidden]left- PatientListPanel
+PatientListPanel -[hidden]left- QuickNotes
+QuickNotes -[hidden]left- HelpWindow
+HelpWindow -[hidden]left- CommandBox
+CommandBox -[hidden]left- ResultDisplay
+ResultDisplay -[hidden]left- StatusBarFooter
+
+
+
+'MainWindow -[hidden]-|> UiPart
+@enduml
